@@ -1,25 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React,{useState,useEffect} from "react";
 
-function NewPackages() {
-  const [shippedOrders, setShippedOrders] = useState([]);
-  const [sendedOrder, setSendedOrder] = useState("");
+function DisributionTeam() {
 
-  useEffect(() => {
-    getShippedOrders();
-  }, [sendedOrder]);
+    const [allDeliveryOrders,setAllDeliveryOrders] = useState([]);
+    const [sendedOrder, setSendedOrder] = useState("");
 
-  console.log(shippedOrders);
-
-  const getShippedOrders = () => {
-    fetch("http://localhost:5000/shippedorders")
+  const getDeliveryOrder = () => {
+    fetch("http://localhost:5000/getalldeliveryorder")
       .then((data) => data.json())
-      .then((data) => setShippedOrders(data));
+      .then((data) => console.log(setAllDeliveryOrders(data)));
   };
 
-  const deliveryOrderHandle = (e) => {
+  useEffect(getDeliveryOrder,[sendedOrder]);
+
+  const completeHandle = (e) => {
     const orderNumber = e.target.value;
 
-    fetch("http://localhost:5000/deliveryorder", {
+    fetch("http://localhost:5000/completeorder", {
       method: "PATCH",
       body: JSON.stringify({
         orderNumber: orderNumber,
@@ -32,16 +29,15 @@ function NewPackages() {
       .then(() => setSendedOrder(orderNumber));
   };
 
-  return (
-    <div>
-      <h1 style={{ color: "#d40511" }}>
-        New Packages from Contracted Companies
-      </h1>
-      <div className="container d-flex flex-wrap justify-content-center">
-        {shippedOrders.map((order) => {
+
+  
+
+  return <div>
+         <div className="container d-flex flex-wrap justify-content-center">
+        {allDeliveryOrders.map((order) => {
           return (
             <div class="card m-2 shadow" style={{ width: "18rem" }}>
-              <img src="./images/office.jpg" class="card-img-top p-3" alt="..." />
+              <img src="./images/logo.svg" class="card-img-top p-3" alt="..." />
               <div class="card-body">
                 <div class="card-title">
                   <label>Name:</label>{" "}
@@ -65,20 +61,19 @@ function NewPackages() {
                 </div>
 
                 <button
-                  onClick={deliveryOrderHandle}
+                  onClick={completeHandle}
                   value={order.orderNumber}
                   href="#"
                   class="btn btn-primary"
                 >
-                  Give it to the distribution team
+                  The package has been delivered
                 </button>
               </div>
             </div>
           );
         })}
       </div>
-    </div>
-  );
+  </div>;
 }
 
-export default NewPackages;
+export default DisributionTeam;
