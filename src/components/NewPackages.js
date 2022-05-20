@@ -41,7 +41,7 @@ function NewPackages() {
         {shippedOrders.map((order) => {
           return (
             <div class="card m-2 shadow" style={{ width: "18rem" }}>
-              <img src="./images/office.jpg" class="card-img-top p-3" alt="..." />
+              <img src="./images/logo.svg" class="card-img-top p-3" alt="..." />
               <div class="card-body">
                 <div class="card-title">
                   <label>Name:</label>{" "}
