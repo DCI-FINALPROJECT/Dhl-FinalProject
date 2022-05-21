@@ -1,9 +1,8 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
 function DisributionTeam() {
-
-    const [allDeliveryOrders,setAllDeliveryOrders] = useState([]);
-    const [sendedOrder, setSendedOrder] = useState("");
+  const [allDeliveryOrders, setAllDeliveryOrders] = useState([]);
+  const [sendedOrder, setSendedOrder] = useState("");
 
   const getDeliveryOrder = () => {
     fetch("http://localhost:5000/getalldeliveryorder")
@@ -11,7 +10,7 @@ function DisributionTeam() {
       .then((data) => console.log(setAllDeliveryOrders(data)));
   };
 
-  useEffect(getDeliveryOrder,[sendedOrder]);
+  useEffect(getDeliveryOrder, [sendedOrder]);
 
   const completeHandle = (e) => {
     const orderNumber = e.target.value;
@@ -29,11 +28,12 @@ function DisributionTeam() {
       .then(() => setSendedOrder(orderNumber));
   };
 
-
-  
-
-  return <div>
-         <div className="container d-flex flex-wrap justify-content-center">
+  return (
+    <div>
+      <h1 style={{ color: "#d40511" }}>
+        The Distributor Will Deliver the Package
+      </h1>
+      <div className="container d-flex flex-wrap justify-content-center">
         {allDeliveryOrders.map((order) => {
           return (
             <div class="card m-2 shadow" style={{ width: "18rem" }}>
@@ -73,7 +73,8 @@ function DisributionTeam() {
           );
         })}
       </div>
-  </div>;
+    </div>
+  );
 }
 
 export default DisributionTeam;
